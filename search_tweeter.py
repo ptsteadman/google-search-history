@@ -135,14 +135,14 @@ if __name__ == '__main__':
         sys.exit('Usage: python search_tweeter.py tweet statefile email passwd [code]')
 
     outfile = sys.argv[1]
-    tweet = sys.argv[2]
+    tweet_new = sys.argv[2]
     email = sys.argv[3]
     passwd = sys.argv[4]
     code = None
     if argc == 6:
         code = sys.argv[5]
 
-    if tweet:
+    if tweet_new:
 	api = twitter.Api(consumer_key='',
 			  consumer_secret='',
 			  access_token_key='',
@@ -173,7 +173,7 @@ if __name__ == '__main__':
 
     for message in reversed(to_tweet):
 	print message
-	if tweet:
+	if tweet_new:
 	    tweet(api, message)
 	    time.sleep(5)
 
