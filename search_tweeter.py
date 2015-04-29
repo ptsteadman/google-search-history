@@ -134,8 +134,8 @@ if __name__ == '__main__':
     if argc < 5 or argc > 6:
         sys.exit('Usage: python search_tweeter.py tweet statefile email passwd [code]')
 
-    outfile = sys.argv[1]
-    tweet_new = sys.argv[2]
+    tweet_new = sys.argv[1]
+    outfile = sys.argv[2]
     email = sys.argv[3]
     passwd = sys.argv[4]
     code = None
