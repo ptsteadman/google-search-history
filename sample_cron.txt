@@ -1,0 +1,2 @@
+*/10 * * * * PHANTOMJS_EXECUTABLE=/usr/local/bin/phantomjs /bin/bash /home/ubuntu/theosearch/scrapeAndTweet.sh > /home/ubuntu/theosearch/cron_out.txt 
+
