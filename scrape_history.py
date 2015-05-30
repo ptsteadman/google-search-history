@@ -1,16 +1,9 @@
-'''Search Tweeter
-
-Usage:
-    python search_tweeter.py statefile email passwd [code]
-
-    where `code` is used for second factor authentication.
-'''
-
 import datetime
 import re
 import sys
 import time
 import argparse
+import json
 
 import mechanize
 from bs4 import BeautifulSoup
@@ -91,19 +84,16 @@ def parse_date(date):
 def get_page(browser, url, history):
     '''Get all searches from a page and return the URL to the next page.'''
     response = browser.open(url)
-    soup = BeautifulSoup(response.read())
-    search_date = parse_date('Today')
-    for i in xrange(0, 36):
-	row = soup.select("#r" + str(i))
-	if len(row) > 0:
-	    search = row[0].select("a")[0].text
-            history.append(search)
-
-    # Determine the URL for the next page, if there is a next page
-    buttons = soup.find_all('a', attrs={'class': 'kd-button'})
-    for button in buttons:
-        if button.text == 'Older':
-            return button.attrs.get('href')
+    p = re.compile(r"(?<=window.HISTORY_response=)(.*?)(?=;window)")
+    m = p.search(response.read())
+    if m is None:
+        return None
+    hist_str = m.group()
+    print hist_str
+    p = re.compile(r"(?<=,\[\[\")(.*?)(?=\")")
+    m = p.findall(hist_str)
+    for match in m:
+        history.append(match)
 
 def get_history(email, passwd, code=None):
     '''Get the google search history for a user.'''
