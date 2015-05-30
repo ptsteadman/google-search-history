@@ -1,39 +1,32 @@
-import 
+from scrape_history import get_history
+import twitter
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description="Search tweeter")
     parser.add_argument("username", help="Google username")
     parser.add_argument("password", help="Google password")
     parser.add_argument("--code", help="Google second factor auth code")
-    parser.add_argument("--tweet", help="actually tweet the most recent searches",
-                        action="store_true")
-    parser.add_argument("--file", help="file storing most recent tweet (older searches ignored")
-    parser.add_argument("--consumer_key", help="file storing most recent tweet (older searches ignored")
-    parser.add_argument("--file", help="file storing most recent tweet (older searches ignored")
-    parser.add_argument("--file", help="file storing most recent tweet (older searches ignored")
-    parser.add_argument("--file", help="file storing most recent tweet (older searches ignored")
+    parser.add_argument("--state_file", help="file storing most recent tweet (older searches ignored")
+    parser.add_argument("--consumer_key")
+    parser.add_argument("--consumer_secret")
+    parser.add_argument("--access_token_key")
+    parser.add_argument("--access_token_secret")
 
+    args = parser.parse_args()
 
-    
-    argc = len(sys.argv)
-    if argc < 5 or argc > 6:
-        sys.exit('Usage: python search_tweeter.py tweet statefile email passwd [code]')
+    tweet_new = args.tweet
+    outfile = args.state_file
 
-    tweet_new = sys.argv[1]
-    outfile = sys.argv[2]
-    email = sys.argv[3]
-    passwd = sys.argv[4]
-    code = None
-    if argc == 6:
-        code = sys.argv[5]
+    if args.consumer_key and args.consumer_secret and args.access_token_key and args.access_token_secret::
+	api = twitter.Api(consumer_key=args.consumer_key,
+			  consumer_secret=args.consumer_secret,
+			  access_token_key=args.access_token_key,
+			  access_token_secret=args.access_token_secret)
+    else:
+        print "Must supply twitter api credentials."
 
-    if tweet_new:
-	api = twitter.Api(consumer_key='',
-			  consumer_secret='',
-			  access_token_key='',
-			  access_token_secret='')
-
-    history = get_history(email, passwd, code)
+    history = get_history(args.username, args.password, args.code)
     if len(history) > 0:
 	try:
 	    most_recent = None
