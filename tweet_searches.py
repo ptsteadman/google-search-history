@@ -52,7 +52,10 @@ if __name__ == '__main__':
 
     for message in reversed(to_tweet):
 	print message
-        api.PostUpdate(message)
+	try:
+            api.PostUpdate(message)
+	except twitter.error.TwitterError as e:
+	    print e
         time.sleep(5)
 
     with open(outfile, 'w') as f:
