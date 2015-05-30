@@ -89,7 +89,6 @@ def get_page(browser, url, history):
     if m is None:
         return None
     hist_str = m.group()
-    print hist_str
     p = re.compile(r"(?<=,\[\[\")(.*?)(?=\")")
     m = p.findall(hist_str)
     for match in m:

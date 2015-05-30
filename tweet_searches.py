@@ -1,5 +1,7 @@
 from scrape_history import get_history
 import twitter
+import argparse
+import time
 
 if __name__ == '__main__':
 
@@ -15,10 +17,9 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    tweet_new = args.tweet
     outfile = args.state_file
 
-    if args.consumer_key and args.consumer_secret and args.access_token_key and args.access_token_secret::
+    if args.consumer_key and args.consumer_secret and args.access_token_key and args.access_token_secret:
 	api = twitter.Api(consumer_key=args.consumer_key,
 			  consumer_secret=args.consumer_secret,
 			  access_token_key=args.access_token_key,
@@ -51,9 +52,8 @@ if __name__ == '__main__':
 
     for message in reversed(to_tweet):
 	print message
-	if tweet_new:
         api.PostUpdate(message)
-	    time.sleep(5)
+        time.sleep(5)
 
     with open(outfile, 'w') as f:
 	f.write(new_most_recent)
