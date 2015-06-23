@@ -23,7 +23,8 @@ if __name__ == '__main__':
 	api = twitter.Api(consumer_key=args.consumer_key,
 			  consumer_secret=args.consumer_secret,
 			  access_token_key=args.access_token_key,
-			  access_token_secret=args.access_token_secret)
+			  access_token_secret=args.access_token_secret,
+			  input_encoding="utf-8")
     else:
         print "Must supply twitter api credentials."
 
@@ -53,8 +54,11 @@ if __name__ == '__main__':
     for message in reversed(to_tweet):
 	print message
 	try:
+	    message.decode("utf-8")
             api.PostUpdate(message)
 	except twitter.error.TwitterError as e:
+	    print e
+	except UnicodeDecodeError as e:
 	    print e
         time.sleep(5)
 
