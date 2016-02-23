@@ -90,12 +90,14 @@ def parse_date(date):
 def get_page(browser, url, history):
     '''Get all searches from a page and return the URL to the next page.'''
     response = browser.open(url)
+    # this is the bootstrapped data
     p = re.compile(r"(?<=window.HISTORY_response=)(.*?)(?=;window)")
     m = p.search(response.read())
     if m is None:
         return None
     hist_str = m.group()
-    p = re.compile(r"(?<=,\[\[\")(.*?)(?=\")")
+    # gets only searches
+    p = re.compile(r",\[\[\"([^\"]*?)\",\"https:\/\/www.google.com\/search")
     m = p.findall(hist_str)
     for match in m:
         history.append(match)
