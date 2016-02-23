@@ -17,7 +17,8 @@ def select_form(browser, form_id):
 
 def authenticate(browser, email, passwd, code=None):
     '''Authenticate a google user based on the supplied credentials'''
-    attempt_first_factor(browser, email, passwd)
+    attempt_email(browser, email, passwd)
+    attempt_password(browser, email, passwd)
     if failed_first_factor(browser):
         sys.exit("Incorrect email and password combination")
     if requires_second_factor(browser):
@@ -26,11 +27,16 @@ def authenticate(browser, email, passwd, code=None):
             sys.exit("Second factor failed")
     return True
 
-def attempt_first_factor(browser, email, passwd):
+def attempt_email(browser, email, passwd):
     '''Attempt a email/password challange'''
     response = browser.open('https://history.google.com')
     select_form(browser, 'gaia_loginform')
     browser['Email'] = email
+    return browser.submit()
+
+def attempt_password(browser, email, passwd):
+    '''Attempt a email/password challange'''
+    select_form(browser, 'gaia_loginform')
     browser['Passwd'] = passwd
     return browser.submit()
 
