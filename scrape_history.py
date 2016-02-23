@@ -97,7 +97,7 @@ def get_page(browser, url, history):
         return None
     hist_str = m.group()
     # gets only searches
-    p = re.compile(r",\[\[\"([^\"]*?)\",\"https:\/\/www.google.com\/search")
+    p = re.compile(r",\[\[\"([^\"]*?)\",\"https:\/\/www.google.com\/[search|maps]")
     m = p.findall(hist_str)
     for match in m:
         history.append(match)
