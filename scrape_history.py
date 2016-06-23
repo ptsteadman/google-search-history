@@ -121,6 +121,6 @@ if __name__ == '__main__':
     history = get_history(args.username, args.password, args.code)
     if len(history) > 0:
         for search in history:
-            print search
+            print(search)
     else:
-        print "Error getting searches."
+        print("Error getting searches.")
