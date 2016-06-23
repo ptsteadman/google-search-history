@@ -26,7 +26,7 @@ if __name__ == '__main__':
 			  access_token_secret=args.access_token_secret,
 			  input_encoding="utf-8")
     else:
-        print "Must supply twitter api credentials."
+        print("Must supply twitter api credentials.")
 
     history = get_history(args.username, args.password, args.code)
     if len(history) > 0:
@@ -44,22 +44,22 @@ if __name__ == '__main__':
 		    to_tweet.append(search)
 
 	except IOError as e:
-	    print "Creating 'most recent' file."
+	    print("Creating 'most recent' file.")
 	    to_tweet = [history[0]]
 	    new_most_recent = history[0]
 
     else:
-	print "Error getting searches."
+	print("Error getting searches.")
 
     for message in reversed(to_tweet):
-	print message
+	print(message)
 	try:
 	    message.decode("utf-8")
             api.PostUpdate(message)
 	except twitter.error.TwitterError as e:
-	    print e
+	    print(e)
 	except UnicodeDecodeError as e:
-	    print e
+	    print(e)
         time.sleep(5)
 
     with open(outfile, 'w') as f:
