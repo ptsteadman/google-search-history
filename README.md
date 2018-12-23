@@ -10,5 +10,5 @@ search history is synced across devices, you could get searches from mobile chro
 
 __Update July 2016:__ Google has bundled all history items including voice, location,
 YouTube, browser, search into myactivity.google.com.  This code won't work, but the approach
-used here might.
+used here might. [postmortem](https://computerlab.io/2016/06/22/what-i-learned-from-live-tweeting-google/)
 
